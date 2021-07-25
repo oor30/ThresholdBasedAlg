@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/kazuki/Developer/CLionProjects/ThresholdBasedAlg/Node.h
+iostream
+-
+set
+-
+map
+-
+random
+-
+thread
+-
+configure.h
+/Users/kazuki/Developer/CLionProjects/ThresholdBasedAlg/configure.h
+
+/Users/kazuki/Developer/CLionProjects/ThresholdBasedAlg/configure.h
+
+/Users/kazuki/Developer/CLionProjects/ThresholdBasedAlg/main.cpp
+iostream
+-
+fstream
+-
+Node.h
+/Users/kazuki/Developer/CLionProjects/ThresholdBasedAlg/Node.h
+configure.h
+/Users/kazuki/Developer/CLionProjects/ThresholdBasedAlg/configure.h
+
