@@ -11,10 +11,10 @@ int output(Node[N]);
 
 int main() {
     std::cout << "Hello, World!" << std::endl;
-    Node node[N];
-    nodeGenerator(node);
-    startSimulation(node);
-    output(node);
+    Node nodes[N];
+    nodeGenerator(nodes);
+    startSimulation(nodes);
+    output(nodes);
     return 0;
 }
 
@@ -31,13 +31,13 @@ void nodeGenerator(Node node[N]) {
     }
 }
 
-void startSimulation(Node node[N]) {
+void startSimulation(Node nodes[N]) {
     for (int i = 0; i < N; ++i) {
-        node[i].start();
+        nodes[i].start();
     }
 }
 
-int output(Node node[N]) {
+int output(Node nodes[N]) {
     std::ofstream ofs("/Users/kazuki/Developer/CLionProjects/ThresholdBasedAlg/output/output.csv");
     if (!ofs.is_open()) {
         std::cout << "ファイルをオープンできません" << std::endl;
@@ -48,9 +48,9 @@ int output(Node node[N]) {
 
     for (int i = 0; i < N; i++) {
         ofs << i << ",";
-        ofs << node[i].pos.x << ",";
-        ofs << node[i].pos.y << ",";
-        ofs << node[i].velocity << std::endl;
+        ofs << nodes[i].pos.x << ",";
+        ofs << nodes[i].pos.y << ",";
+        ofs << nodes[i].velocity << std::endl;
     }
     ofs.close();
     return 0;

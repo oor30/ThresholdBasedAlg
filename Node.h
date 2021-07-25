@@ -27,7 +27,7 @@ public:
     int direction;
     double velocity;
     std::string state;
-    Node *node;
+    Node *nodes;
 
     Node() {}
 
@@ -40,12 +40,12 @@ public:
         velocity = v;
         state = "default";
 //        r2Stable = {};
-        node = n;
+        nodes = n;
 //        my_mobility = neighbor_mobility(id, pos, velocity, );
     }
 
     void start() const {
-        cout << node[N - 1].velocity << endl;
+        cout << nodes[N - 1].velocity << endl;
         auto th = std::thread([] { &Node::periodicalMessage; });
         th.join();
     }

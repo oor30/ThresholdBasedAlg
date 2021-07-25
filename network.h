@@ -12,15 +12,15 @@ using namespace std;
 
 class Network {
 public:
-    Node *node;
+    Node *nodes;
 
     Network(Node n[N]) {
-        node = n;
+        nodes = n;
     }
 
-    void send_hello(Node n) {
+    void send_hello(Node node) {
         for (int i = 0; i < N; ++i) {
-            dist = calc_dist(n.pos, node[i].pos)
+            dist = calc_dist(node.pos, nodes[i].pos)
             if (0 < dist || dist < r * 2) {
 
             }
