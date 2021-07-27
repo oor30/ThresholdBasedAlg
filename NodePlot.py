@@ -1,33 +1,86 @@
 import matplotlib.pyplot as plt
 import networkx as nx
 import csv
+from matplotlib import animation
 
-print("hello python")
+print("hello python: NodePlot.py")
 
-csv_file = open("/Users/kazuki/Developer/CLionProjects/ThresholdBasedAlg/output/output.csv", "r")
-f = csv.reader(csv_file, delimiter=",", lineterminator="\r\n")
+INPUT_CSV_PATH = '/Users/kazuki/Developer/CLionProjects/ThresholdBasedAlg/output/output.csv'
+OUTPUT_GIF_PATH = '/Users/kazuki/Developer/CLionProjects/ThresholdBasedAlg/output/nodes.gif'
 
-# 12個の頂点と、ランダムに引いた辺を持つグラフを定義
+# グラフを定義
 G = nx.Graph()
-# G.add_nodes_from([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
-# for i in range(len(G.nodes)):
-#     for j in range(i + 1, len(G.nodes)):
-#         if np.random.uniform() < 0.3:
-#             G.add_edge(node_labels[i], node_labels[j])
+fig = plt.figure(figsize=(150, 10))
+plt.xlabel("x-label")
+plt.ylabel("y-label")
+ax = fig.add_subplot(111)
 
-# pos = {
-#     n: (np.cos(2 * i * np.pi / 12), np.sin(2 * i * np.pi / 12))
-#     for i, n in enumerate(G.nodes)
-# }
-nodes = [row for row in f]
-G.add_nodes_from([n for n in range(len(nodes))])
-pos = {int(node[0]): (int(node[1]), int(node[2])) for node in nodes}
-node_color = [float(node[3]) for node in nodes]
-# pos = {
-#     n: (n, 0) for n in range(10)
-# }
-print(pos)
 
-# 座標を指定せずに描写する
-nx.draw_networkx(G, pos=pos, node_color=node_color)
-plt.show()
+def get_nodes():
+    csv_file = open(INPUT_CSV_PATH, "r")
+    f = csv.reader(csv_file, delimiter=",", lineterminator="\r\n")
+    nodes = [row for row in f]
+
+    nodes_outer = []
+    nodes_inner = []
+    cnt = 0
+    for i in range(len(nodes)):
+        node = nodes[i]
+        if node[0] == 't=':
+            if node[1] == str(cnt + 1):
+                nodes_outer.append(nodes_inner)
+                nodes_inner = []
+                cnt += 1
+        else:
+            nodes_inner.append(node)
+        if cnt == 50:
+            break
+    print('len(nodes_outer): {}'.format(len(nodes_outer)))
+    return nodes_outer
+
+
+def get_ims(nodes_outer):
+    ims = []
+    for nodes in nodes_outer:
+        pos = {}
+        node_color = []
+        G.add_nodes_from([n for n in range(len(nodes))])
+        for node in nodes:
+            pos[int(node[0])] = (float(node[1]), float(node[2]))
+            node_color.append(float(node[3]))
+        nex = nx.draw_networkx(G, pos=pos, node_color=node_color)
+        ims.append(nex)
+    return ims
+
+
+nodesG = get_nodes()
+
+
+def update(i):
+    plt.cla()
+    ax.grid()
+    ax.set_xlim(0, 25000)
+    ax.set_ylim(0, 10)
+    pos = {}
+    node_color = []
+    nodes = nodesG[i]
+    for node in nodes:
+        pos[int(node[0])] = (float(node[1]), float(node[2]))
+        node_color.append(float(node[3]))
+
+    G.add_nodes_from(range(len(pos)))
+    nx.draw_networkx(G, pos=pos, node_color=node_color)
+    plt.title('t=' + str(i))
+
+
+def main():
+    # nodes = get_nodes()
+    # ims = get_ims(nodes)
+    # anim = animation.ArtistAnimation(fig, ims, interval=100, blit=True)
+    anim = animation.FuncAnimation(fig, update, frames=50, interval=100)
+    anim.save(OUTPUT_GIF_PATH, writer='pillow')
+    plt.show()
+
+
+if __name__ == "__main__":
+    main()

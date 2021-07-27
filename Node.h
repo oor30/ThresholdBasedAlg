@@ -28,10 +28,11 @@ public:
     double velocity;
     std::string state;
     Node *nodes;
+    double v_max;
 
     Node() {}
 
-    Node(int i, double v, Node n[N]) {
+    Node(int i, double v, Node n[N], double v_m = 150) {
         std::random_device rnd;
         id = i;
         pos = {(double) (rnd() % 15000), (double) (rnd() % 10), 0.0};
@@ -42,12 +43,17 @@ public:
 //        r2Stable = {};
         nodes = n;
 //        my_mobility = neighbor_mobility(id, pos, velocity, );
+        v_max = v_m;
     }
 
     void start() const {
-        cout << nodes[N - 1].velocity << endl;
-        auto th = std::thread([] { &Node::periodicalMessage; });
-        th.join();
+//        cout << nodes[N - 1].velocity << endl;
+//        auto th = std::thread([] { &Node::periodicalMessage; });
+//        th.join();
+//        thread th1([this]() { this->move(); });
+////        auto th1 = thread([] { &Node::move; });
+//        th1.join();
+
     }
 
     void periodicalMessage() {
@@ -68,12 +74,15 @@ public:
         }
     }
 
+    // TODO: car-followingモデル
+    // TODO: 非同期処理
     void move() {
-
+        pos.x += velocity;
+        cout << pos.x << ", " << pos.y << endl;
     }
 
-    static double calcDist(double x, double y) {
-        return x * x + y * y;
+    void calcDesiredSpeed() {
+
     }
 };
 

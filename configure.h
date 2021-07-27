@@ -10,6 +10,7 @@
 #define mu 70
 #define sig 21
 #define v_th sig
+#define output_path "/Users/kazuki/Developer/CLionProjects/ThresholdBasedAlg/output/output.csv"
 
 typedef struct {
     double x, y, z;

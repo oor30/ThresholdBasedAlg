@@ -27,6 +27,8 @@ iostream
 -
 fstream
 -
+string
+-
 Node.h
 /Users/kazuki/Developer/CLionProjects/ThresholdBasedAlg/Node.h
 configure.h
