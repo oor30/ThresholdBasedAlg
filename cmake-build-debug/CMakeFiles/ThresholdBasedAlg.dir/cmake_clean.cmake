@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/ThresholdBasedAlg.dir/Node.cpp.o"
   "CMakeFiles/ThresholdBasedAlg.dir/main.cpp.o"
   "ThresholdBasedAlg"
   "ThresholdBasedAlg.pdb"

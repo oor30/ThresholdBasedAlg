@@ -80,6 +80,9 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/Users/kazuki/Developer/CLionProjects/ThresholdBasedAlg/Node.cpp">
+			<Option target="ThresholdBasedAlg"/>
+		</Unit>
 		<Unit filename="/Users/kazuki/Developer/CLionProjects/ThresholdBasedAlg/Node.h">
 			<Option target="ThresholdBasedAlg"/>
 		</Unit>

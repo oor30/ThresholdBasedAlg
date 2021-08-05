@@ -53,12 +53,12 @@ void startSimulation(Node nodes[N]) {
 }
 
 string get_text(Node nodes[N], int n) {
-    string text = "t=," + to_string(n) + ",-,-,\n";
+    string text = "t=," + to_string(n) + ",-,-\n";
     for (int i = 0; i < N; ++i) {
         text += to_string(i) + ",";
         text += to_string(nodes[i].pos.x) + ",";
         text += to_string(nodes[i].pos.y) + ",";
-        text += to_string(nodes[i].velocity) + "\n";
+        text += to_string(nodes[i].v) + "\n";
     }
     return text;
 }
@@ -76,7 +76,7 @@ int output(Node nodes[N], string output_texts[100]) {
 //        ofs << i << ",";
 //        ofs << nodes[i].pos.x << ",";
 //        ofs << nodes[i].pos.y << ",";
-//        ofs << nodes[i].velocity << endl;
+//        ofs << nodes[i].v << endl;
 //    }
 
     for (int i = 0; i < 100; ++i) {

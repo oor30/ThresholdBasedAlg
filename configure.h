@@ -4,7 +4,7 @@
 
 #ifndef THRESHOLDBASEDALG_CONFIGURE_H
 #define THRESHOLDBASEDALG_CONFIGURE_H
-#define N 400
+#define N 100
 #define r 150
 #define R 800
 #define mu 70
@@ -13,8 +13,14 @@
 #define output_path "/Users/kazuki/Developer/CLionProjects/ThresholdBasedAlg/output/output.csv"
 
 typedef struct {
-    double x, y, z;
+    double x, y;
 } position;
+
+enum class STATE {
+    default_,
+    CH,
+    CM
+};
 
 class neighbor_mobility {
     int id;
@@ -31,5 +37,10 @@ class neighbor_mobility {
         nodal_degree = n;
     }
 };
+
+//position const getPos(double d) {
+//    position pos = {d, (double)0.0};
+//    return pos;
+//}
 
 #endif //THRESHOLDBASEDALG_CONFIGURE_H

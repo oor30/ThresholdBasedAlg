@@ -11,43 +11,42 @@
 #include <random>
 #include <thread>
 #include "configure.h"
-//#include "network.h"
 
 
 using namespace std;
 
 class Node {
+    // クラスタリング用変数（車自身が持つ）
 private:
+
+// 周囲の車のリスト
     std::map<int, Node> r2Stable;
     map<int, Node> r2_slower;
     map<int, Node> r2_faster;
 public:
+    Node();
+    Node(int id, double v, Node *n, int r_n = 0, double v_max = 150);
+    void move();
+    // 車のセンサーから得られる情報
     int id;
     position pos{};
+    int route_number;
     int direction;
-    double velocity;
-    std::string state;
+    double v;
+    STATE state = STATE::default_;
     Node *nodes;
+
+    // 交通モデル用パラメータ（車自身が持たない）
+    // -> クラスタリングには用いない
+    int lane_no;
     double v_max;
-
-    Node() {}
-
-    Node(int i, double v, Node n[N], double v_m = 150) {
-        std::random_device rnd;
-        id = i;
-        pos = {(double) (rnd() % 15000), (double) (rnd() % 10), 0.0};
-//        direction = rnd() % 2;
-//        direction = pos.y;
-        velocity = v;
-        state = "default";
-//        r2Stable = {};
-        nodes = n;
-//        my_mobility = neighbor_mobility(id, pos, velocity, );
-        v_max = v_m;
-    }
+    double a;
+    double b;
+    double t_delta;
+    double t_react;
 
     void start() const {
-//        cout << nodes[N - 1].velocity << endl;
+//        cout << nodes[N - 1].v << endl;
 //        auto th = std::thread([] { &Node::periodicalMessage; });
 //        th.join();
 //        thread th1([this]() { this->move(); });
@@ -63,7 +62,7 @@ public:
     }
 
     void received_hello(Node n) {
-        double v_gap = n.velocity - this->velocity;
+        double v_gap = n.v - this->v;
         if (abs(v_gap) < v_th) {
             r2Stable[n.id] = n;
             if (v_gap >= 0) {
@@ -74,16 +73,11 @@ public:
         }
     }
 
-    // TODO: car-followingモデル
-    // TODO: 非同期処理
-    void move() {
-        pos.x += velocity;
-        cout << pos.x << ", " << pos.y << endl;
-    }
-
-    void calcDesiredSpeed() {
-
-    }
+//    double calcDesiredSpeed() {
+//        double v_at = v + a * t_delta;
+//        double v_safe = v_l + ((gap - v_l * t_react)/((v_l + v)/2 * b) + t_react);
+//        return min({v_max, v_at, v_safe});
+//    }
 };
 
 #endif //THRESHOLDBASEDALG_NODE_H

@@ -20,7 +20,7 @@ public:
 
     void send_hello(Node node) {
         for (int i = 0; i < N; ++i) {
-            dist = calc_dist(node.pos, nodes[i].pos)
+            double dist = calc_dist(node.pos, nodes[i].pos);
             if (0 < dist || dist < r * 2) {
 
             }
@@ -28,7 +28,7 @@ public:
     }
 
     double calc_dist(position p1, position p2) {
-        return pow(p1.x - p2.x) + pow(p1.y - p2.y);
+        return pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2);
     }
 };
 
