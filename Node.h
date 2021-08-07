@@ -25,7 +25,8 @@ private:
     map<int, Node> r2_faster;
 public:
     Node();
-    Node(int id, double v, Node *n, int r_n = 0, double v_max = 150);
+    Node(int id, double v, map<int, Node> nodes, int r_n = 0, double v_max = 150);
+//    Node(int id, double v, Node *n, int r_n = 0, double v_max = 150);
     void move();
     // 車のセンサーから得られる情報
     int id;
@@ -34,7 +35,8 @@ public:
     int direction;
     double v;
     STATE state = STATE::default_;
-    Node *nodes;
+//    Node *nodes;
+    map<int, Node> nodes;
 
     // 交通モデル用パラメータ（車自身が持たない）
     // -> クラスタリングには用いない
