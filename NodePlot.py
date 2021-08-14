@@ -59,8 +59,8 @@ nodesG = get_nodes()
 def update(i):
     plt.cla()
     ax.grid()
-    ax.set_xlim(0, 25000)
-    ax.set_ylim(0, 10)
+    ax.set_xlim(-15000, 25000)
+    ax.set_ylim(-1, 4)
     pos = {}
     node_color = []
     nodes = nodesG[i]

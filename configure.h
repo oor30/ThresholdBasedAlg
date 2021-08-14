@@ -4,7 +4,8 @@
 
 #ifndef THRESHOLDBASEDALG_CONFIGURE_H
 #define THRESHOLDBASEDALG_CONFIGURE_H
-#define N 10
+#define N 100
+#define TIMES 100
 #define r 150
 #define R 800
 #define mu 70
@@ -22,25 +23,9 @@ enum class STATE {
     CM
 };
 
-class neighbor_mobility {
-    int id;
-    position pos;
-    double velocity;
-    int direction;
-    int nodal_degree;
-
-    neighbor_mobility(int i, position p, double v, int d, int n) {
-        id = i;
-        pos = p;
-        velocity = v;
-        direction = d;
-        nodal_degree = n;
-    }
-};
-
-//position const getPos(double d) {
-//    position pos = {d, (double)0.0};
-//    return pos;
+//position get_pos_lane1(double d) {
+//    return position{d, 0};
 //}
+
 
 #endif //THRESHOLDBASEDALG_CONFIGURE_H
