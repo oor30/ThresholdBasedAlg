@@ -64,7 +64,7 @@ def update(i):
     ax.set_ylim(-1, 4)
     pos = {}
     node_color = []
-    nodes = nodesG[i]
+    nodes = nodesG[i*100]
     for node in nodes:
         pos[int(node[0])] = (float(node[1]), float(node[2]))
         node_color.append(float(node[3]))

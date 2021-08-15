@@ -6,37 +6,3 @@
 
 #IncludeRegexTransform: 
 
-/Users/kazuki/Developer/CLionProjects/ThresholdBasedAlg/Node.h
-iostream
--
-set
--
-map
--
-vector
--
-random
--
-thread
--
-configure.h
-/Users/kazuki/Developer/CLionProjects/ThresholdBasedAlg/configure.h
-
-/Users/kazuki/Developer/CLionProjects/ThresholdBasedAlg/configure.h
-
-/Users/kazuki/Developer/CLionProjects/ThresholdBasedAlg/main.cpp
-iostream
--
-fstream
--
-string
--
-vector
--
-set
--
-Node.h
-/Users/kazuki/Developer/CLionProjects/ThresholdBasedAlg/Node.h
-configure.h
-/Users/kazuki/Developer/CLionProjects/ThresholdBasedAlg/configure.h
-

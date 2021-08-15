@@ -81,8 +81,9 @@ double Node::calc_desired_speed() const {
         flag = true;
     }
 
-    // TODO: v_maxに収束してしまう問題
     // TODO: 位置、速度、加速度の単位を統一
+    // TODO: v_maxに収束してしまう問題->v_maxを正規分布から取得？戻り値をランダムに少し下げる？
+    // TODO: 車線変更の実装
 
     // 3種の速度から最も小さいものを返す
     // 1.v_max: 車の最高速度・制限速度

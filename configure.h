@@ -5,7 +5,7 @@
 #ifndef THRESHOLDBASEDALG_CONFIGURE_H
 #define THRESHOLDBASEDALG_CONFIGURE_H
 #define N 100
-#define TIMES 100
+#define TIMES 10000
 #define r 150
 #define R 800
 #define mu 70
