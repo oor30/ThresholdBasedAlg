@@ -6,12 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/Users/kazuki/Developer/CLionProjects/ThresholdBasedAlg/Node.cpp
-iomanip
--
-Node.h
-/Users/kazuki/Developer/CLionProjects/ThresholdBasedAlg/Node.h
-
 /Users/kazuki/Developer/CLionProjects/ThresholdBasedAlg/Node.h
 iostream
 -
