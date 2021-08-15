@@ -38,7 +38,6 @@ set<int> get_nodes_pos() {
     set<int> neighbor_check;    // すぐ近くに違う初期位置がないかチェックするための集合
     cout << "0~60000の整数の乱数：" << endl;
     while (neighbor_check.size() < N) {
-        // TODO: int型にキャストした時、負の数になりうる不具合
         int pos = (int)(rnd() % (15000 * 4));   // 後で15000m * 2車線 * 2方向に分ける
         if (!neighbor_check.count(pos / 80)) {  // 近くに違う位置がなければ
             neighbor_check.insert(pos / 80);    // 80で割った商をsetに追加
@@ -75,7 +74,7 @@ void node_generator(set<int> &pos_set) {
 
 // シミュレーションを開始
 void start_simulation() {
-    // TODO: シミュレーションログを記録し、より多くの情報をアウトプット(SQL検討)
+    // TODO: シミュレーションログを記録し、より多くの情報をアウトプット(LINQ検討)
     vector<map<string, double>> logs(TIMES);
 
     ofstream ofs(output_path);

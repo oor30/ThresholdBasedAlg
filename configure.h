@@ -23,9 +23,4 @@ enum class STATE {
     CM
 };
 
-//position get_pos_lane1(double d) {
-//    return position{d, 0};
-//}
-
-
 #endif //THRESHOLDBASEDALG_CONFIGURE_H
