@@ -27,8 +27,8 @@ private:
 public:
     Node();
 
-    Node(int id, double dis, int lane, int d, double v, map<int, Node> &nodes,
-         vector<Node> &nodes_by_dis_, int r_n = 0, double v_max = 150);
+    Node(int, double, int, int, double,
+         vector<Node>&, int r_n = 0, double v_max = 120);
 
     void move();
 
@@ -47,19 +47,24 @@ public:
     int direction{};
     double v{};
     STATE state = STATE::default_;
-//    Node *nodes;
-    map<int, Node> *nodes{};
-    vector<Node> *nodes_by_dis{};
+//    static map<int, Node> nodes;
+//    map<int, Node> *nodes{};
 
     // 交通モデル用パラメータ（車自身が持たない）
     // -> クラスタリングには用いない
-    int lane;
-    double v_max;
-    double a;
-    double b;
-    double t_delta;
-    double t_react;
+    vector<Node> *nodes_by_dis{};
+    static map<pair<int, int>, vector<Node*>> nodes_dl;
+    int lane{};
+    double v_max = 120;
+    double a = 10;
+    double b = -10;
+    double t_delta = 0.1;
+    double t_react = 1;
 
+    static bool cmp(Node *a, Node *b)
+    {
+        return (a->dis < b->dis);
+    }
     void start() const {
 //        cout << nodes[N - 1].v << endl;
 //        auto th = std::thread([] { &Node::periodicalMessage; });

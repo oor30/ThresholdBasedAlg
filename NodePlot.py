@@ -33,7 +33,7 @@ def get_nodes():
                 cnt += 1
         else:
             nodes_inner.append(node)
-        if cnt == 50:
+        if cnt == 10000:
             break
     print('len(nodes_outer): {}'.format(len(nodes_outer)))
     return nodes_outer
@@ -57,13 +57,14 @@ nodesG = get_nodes()
 
 
 def update(i):
+    print('t={}'.format(i))
     plt.cla()
     ax.grid()
     ax.set_xlim(-15000, 25000)
     ax.set_ylim(-1, 4)
     pos = {}
     node_color = []
-    nodes = nodesG[i]
+    nodes = nodesG[i*100]
     for node in nodes:
         pos[int(node[0])] = (float(node[1]), float(node[2]))
         node_color.append(float(node[3]))
@@ -77,7 +78,7 @@ def main():
     # nodes = get_nodes()
     # ims = get_ims(nodes)
     # anim = animation.ArtistAnimation(fig, ims, interval=100, blit=True)
-    anim = animation.FuncAnimation(fig, update, frames=50, interval=100)
+    anim = animation.FuncAnimation(fig, update, frames=99, interval=100)
     anim.save(OUTPUT_GIF_PATH, writer='pillow')
     plt.show()
 

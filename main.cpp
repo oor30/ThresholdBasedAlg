@@ -10,28 +10,33 @@ using namespace std;
 
 set<int> get_nodes_pos();
 
-void node_generator(set<int>&, map<int, Node>&, vector<Node>&, vector<vector<Node>>&);
+void node_generator(set<int>&, vector<Node>&);
 
-void start_simulation(map<int, Node> &nodes);
+void start_simulation();
 
 int output(string[TIMES]);
 
-string get_text(map<int, Node> &, int);
+string get_text(int);
 
+map<int, Node> nodes;
+//vector<vector<vector<Node*>>> nodes_lane;
+//vector<vector<vector<Node*>>> nodes_lane(2, vector<vector<Node*>>(2));
+
+
+// main関数
 int main() {
     cout << "Hello, World!" << endl;
 
     set<int> pos_set = get_nodes_pos();
-    map<int, Node> nodes;
     vector<Node> nodes_by_dis = {};
-    vector<vector<Node>> nodes_lane(4);
-    node_generator(pos_set, nodes, nodes_by_dis, nodes_lane);
+    node_generator(pos_set, nodes_by_dis);
 
     cout << "nodes.size():" << nodes.size() << endl;
-    start_simulation(nodes);
+    start_simulation();
     return 0;
 }
 
+// 初期位置のリストを返す関数
 set<int> get_nodes_pos() {
     random_device rnd;
     set<int> pos_set;
@@ -50,13 +55,15 @@ set<int> get_nodes_pos() {
     return tmp;
 }
 
-void node_generator(set<int> &pos_set, map<int, Node> &nodes, vector<Node> &nodes_by_dis,
-                    vector<vector<Node>> &nodes_lane) {
+// ノードを作成
+void node_generator(set<int> &pos_set, vector<Node> &nodes_by_dis) {
     cout << nodes.size() << endl;
     cout << "ノードを作成します" << endl;
     random_device seed;
     mt19937 engine(seed());
     normal_distribution<> dist(mu, sig);
+
+//    vector<vector<vector<Node*>>> Node::nodes_lane(2, vector<vector<Node*>>(2));
 
     auto itr = pos_set.begin();
     for (int i = 0; i < N; ++i) {
@@ -67,18 +74,30 @@ void node_generator(set<int> &pos_set, map<int, Node> &nodes, vector<Node> &node
         int d = pos / 30000;
         double dis = pos % 15000;
         cout << "pos:" << pos << ", lane:" << l << ", d:" << d << ", dis:" << dis << endl;
-        nodes[i] = Node(i, dis, l, d, v, nodes, nodes_by_dis);
+        nodes[i] = Node(i, dis, l, d, v, nodes_by_dis);
         nodes_by_dis.push_back(nodes[i]);
-        nodes_lane[pos / 15000].push_back(nodes[i]);
+//        Node::nodes_lane[d][l].push_back(&nodes[i]);
+        Node::nodes_dl[make_pair(d, l)].push_back(&nodes[i]);
     }
-    sort(nodes_by_dis.begin(), nodes_by_dis.end());
-    for (Node node:nodes_by_dis) {
-        cout << node.dis << ", ";
-    }
+
+//    sort(nodes_by_dis.begin(), nodes_by_dis.end());
+//    for (const Node& node:nodes_by_dis) {
+//        cout << node.dis << ", ";
+//    }
+//    cout << endl;
+    cout << "nodes_lane:" << endl;
+//    for (vector<Node> nodes:nodes_lane) {
+//        cout << "nodes" << endl;
+//        for (Node node:nodes) {
+//            cout << node.dis << ", ";
+//        }
+//    }
     cout << endl;
 }
 
-void start_simulation(map<int, Node> &nodes) {
+void start_simulation() {
+    vector<map<string, double>> logs(TIMES);
+
     ofstream ofs(output_path);
     if (!ofs.is_open()) {
         cout << "ファイルをオープンできません" << endl;
@@ -87,16 +106,28 @@ void start_simulation(map<int, Node> &nodes) {
 
     string output_texts[TIMES];
     for (int i = 0; i < TIMES; ++i) {
+        map<string, double> log;
+
         cout << "t = " << i << endl;
         for (int j = 0; j < N; ++j) {
             nodes[j].move();
         }
-        output_texts[i] = get_text(nodes, i);
+        output_texts[i] = get_text(i);
+
+//        vector<Node*> vec = nodes_lane;
+//        sort(vec.begin(), vec.end(), &Node::cmp);
+//        for (int j = 0; j < nodes_lane.size(); ++j) {
+//            if (vec[j] != nodes_lane[j]) {
+//                cout << "追い越しを検知しました" << endl;
+//                goto OUT;
+//            }
+//        }
     }
+    OUT:
     output(output_texts);
 }
 
-string get_text(map<int, Node> &nodes, int n) {
+string get_text(int n) {
     string text = "t=," + to_string(n) + ",-,-\n";
     for (int i = 0; i < N; ++i) {
         text += to_string(i) + ",";
